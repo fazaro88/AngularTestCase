@@ -1,0 +1,127 @@
+
+<div class="bg-cover">
+    <div class="container container-md pv-lg">
+        <div class="text-center mb-lg pb-lg">
+            <div class="h1 text-bold" *ngIf="isCreation">New user</div>
+            <div class="h1 text-bold" *ngIf="!isCreation">Update user</div>
+        </div>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <form class="form-horizontal p-20" novalidate>
+            <div class="row">
+                <div class="col-md-offset-3 col-md-6 margin-top-10">
+                    <div class="form-group">
+                        <div class="col-sm-1">Name:</div>
+                        <div class="col-sm-9" >
+                            <input class="form-control" type="text" [(ngModel)]="user.name" name="name">
+                        </div>
+                        <div class="col-sm-2" >
+                            <small class="text-muted text-danger">* Required</small>
+                        </div>
+                        <div class="col-md-offset-1 col-sm-11" *ngIf="errorNameRequired">
+                            <span class="text-danger">This field is required</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-1">Surname:</div>
+                        <div class="col-sm-9" >
+                            <input class="form-control" type="text" [(ngModel)]="user.surname" name="surname"> 
+                        </div>
+                        <div class="col-sm-2" >
+                            <small class="text-muted text-danger">* Required</small>
+                        </div>
+                        <div class="col-md-offset-1 col-sm-11" *ngIf="errorSurnameRequired">
+                            <span class="text-danger">This field is required</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-1">IBAN:</div>
+                        <div class="col-sm-9" >
+                            <input class="form-control" type="text" [(ngModel)]="user.IBAN" name="iban">
+                        </div>
+                        <div class="col-sm-2" >
+                            <small class="text-muted text-danger">* Required</small>
+                        </div>
+                        <div class="col-md-offset-1 col-sm-11" *ngIf="errorIBANRequired || errorIBANNotValid">
+                            <span class="text-danger" *ngIf="errorIBANRequired">This field is required</span>
+                            <span class="text-danger" *ngIf="errorIBANNotValid">This field is not valid</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-actions text-center margin-top-10">
+                    <button type="submit" class="btn btn-success"  *ngIf="isCreation" (click)="create()"> Create </button>
+                    <button type="submit" class="btn btn-success"  *ngIf="!isCreation" (click)="update()"> Update </button>
+                    <button type="submit" class="btn btn-danger"  *ngIf="!isCreation" (click)="cancel()"> Cancel </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="bg-cover">
+    <div class="container container-md pv-lg">
+        <div class="text-center mb-lg pb-lg">
+            <div class="h1 text-bold">Lists of Users</div>
+        </div>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="dataTable no-footer" *ngIf="users && users.length">
+            <table class="row-border hover dataTable no-footer" role="grid">
+                <thead>
+                <tr role="row">
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>IBAN</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr role="row" class="pointer"
+                        *ngFor="let user of pagedResults; let i = index"
+                        [ngClass]="{'odd': (index % 2) === 0, 'even': (index % 2) !== 0}">
+                    <td>{{user.name}}</td>
+                    <td>{{user.surname}}</td>
+                    <td>{{user.IBAN}}</td>
+                    <td>
+                        <button class="btn btn-primary btn-lg" type="button" (click)="selectUser(i)">
+                            <em class="fa fa-user"><span class="text-buttons"> Update</span></em>
+                        </button>
+                        <button class="btn btn-danger btn-lg" type="button" (click)="delete(i)">
+                            <em class="fa fa-trash"><span class="text-buttons"> Delete</span></em>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="dataTable-pager">
+                <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                    <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="setPage(1)">First</a>
+                    </li>
+                    <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+                    </li>
+                    <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                            <a (click)="setPage(page)">{{page}}</a>
+                    </li>
+                    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="setPage(pager.currentPage + 1)">Next</a>
+                    </li>
+                    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="setPage(pager.totalPages)">Last</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="text-center" *ngIf="!users || !users.length">
+            No matching results found
+        </div>
+    </div>
+</div>
+
