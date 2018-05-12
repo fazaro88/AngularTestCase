@@ -19,7 +19,7 @@ export class ApiService {
     private setHeaders(): HttpHeaders {
         return new HttpHeaders({
             'Content-Type':  'application/json',
-            'Authorization': `${environment.urls.token}`
+            'Authorization': `${environment.token}`
           });
     }
 

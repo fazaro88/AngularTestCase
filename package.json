@@ -16,7 +16,10 @@
     "@angular/platform-browser": "^5.2.0",
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@angular/router": "^5.2.0",
+    "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
+    "font-awesome": "^4.7.0",
+    "lodash": "^4.17.4",
     "node-sass": "^4.9.0",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.19"
@@ -40,11 +43,8 @@
     "ts-node": "~4.1.0",
     "tslint": "~5.9.1",
     "typescript": "~2.5.3",
-    "bootstrap": "^3.3.7",
     "@angular/material": "5.0.0-rc.3",
     "@angular/cdk": "5.0.0-rc.3",
-    "lodash": "^4.17.4",
-    "font-awesome": "^4.7.0",
     "@angular/forms": "5.2.7",
     "jquery": "^3.2.1"
   }
