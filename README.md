@@ -1,11 +1,17 @@
-# Rindus
+# TestClickum
+This a test to Clickum
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.1.
-This project was developed using angular 5.2.6, the package.json was generated across 'ng new project' and the version of libraries isn't fix. 
+### TASK DESCRIPTION ###
+Task:
+
+* Create a page displaying the current EuroJackpot draw information similar to https://www.lottoland.com/en/eurojackpot/results-winning-numbers
+* Load the data from https://media.lottoland.com/api/drawings/euroJackpot via AJAX.
+
+The site should work on all WebKit-based devices. Feel free to use native JavaScript or the frameworks of your choice.
+Please use ES6 and transpile to ES5 with a task runner like Gulp, Grunt, or just NPM scripts.
+
+###
 
 # Setup
-
-- Run 'npm install' to install modules and libraries.
-- Run 'npm start' or 'ng serve --port 8002'
-
-
+* First, 'npm install' to install dependencies.
+* To launch server use 'npm start' or 'ng serve'.

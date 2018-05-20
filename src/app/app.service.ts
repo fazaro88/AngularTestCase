@@ -1,32 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
-import { User } from './shared/models';
 import { environment } from '../environments/environment';
-import { ApiService } from './shared/services';
-import * as _ from 'lodash';
+import { ApiService } from '../shared/services';
 
 @Injectable()
 export class AppService {
    constructor (private apiService: ApiService) {}
 
-    getUsers(): Observable<any> {
-        const path = `${environment.urls.users}`;
-        return this.apiService.get(path);
+    getJackpot(): Observable<any> {
+        return this.apiService.get();
     }
 
-    updateUser(user: User): Observable<any> {
-        const path = `${environment.urls.users}`+_.get(user, 'id', '');
-        return this.apiService.put(path, user);
-    }
-
-    createUser(user: User): Observable<any> {
-        const path = `${environment.urls.users}`;
-        return this.apiService.post(path, user);
-    }
-
-    deleteUser(id: string): Observable<any> {
-        const path = `${environment.urls.users}`+id;
-        return this.apiService.delete(path);
+    getMockedJackpot(): Observable<any> {
+        return this.apiService.getMocked();
     }
 
     private handleError(error: any): Observable<any> {

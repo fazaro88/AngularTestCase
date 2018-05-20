@@ -1,3 +1,142 @@
-.text-buttons {
-    font-family: "Open Sans", arial, sans-serif;
+.logo {
+    max-height: 3em;
+    cursor: pointer;
+}
+
+.link-header {
+    font-weight: 700;
+    font-size: 0.75em;
+    color: #69a507;
+}
+
+.menuBuy {
+    padding:  0 1em;
+    border-right: 1px solid  #69a507;
+    cursor: pointer;
+}
+
+.text-banner {
+    font-weight: 200;
+    font-size: 0.65em;
+    color: #012406;
+    text-align: left;
+}
+
+.text-banner > p {
+    margin-bottom: 0px;
+}
+
+.menu {
+    color: white;
+    background-color: #69a507;
+}
+
+a.nav-link {
+    cursor: pointer;
+    padding: 1em;
+}
+
+.navbar > .nav-link:hover {
+    background-color: #c3dc41;
+}
+
+li > a.nav-link {
+    color: #69a507;
+    border: 1px solid grey;
+}
+
+li > a.nav-link.active {
+    background-color: #ffe066;
+    color: black;
+}
+
+.title-section {
+    border-bottom: 1px solid grey;
+}
+
+.lottery-number {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    border: 1px solid #d9deda;
+    border-radius: 50%;
+}
+
+.extra {
+    border: 1px solid #ca7f26;
+}
+
+.box-shadow{
+    -webkit-box-shadow: -7px 0 0 0 #69a507;
+    box-shadow: -7px 0 0 0 #69a507;
+    border-radius: 0px;
+}
+
+.fs-breadcumb {
+    font-size: 0.85em;
+    background-color: #e9ecef;
+}
+
+.link{
+    color: #69a507 !important;
+    cursor: pointer;
+}
+
+.link:hover {
+    color: #535353 !important;
+    text-decoration: none;
+}
+
+.fs-footer{
+    font-size: 0.90em;
+}
+
+.fs-privacity{
+    font-size: 0.7em;
+    background-color: #f8f8f8;
+    color: #9aa89c;
+    padding: 2em;
+}
+
+.backgroundColor {
+    background-color: #f8f8f8; 
+    border-bottom: 1px solid #d9deda;
+    padding: 2em;
+}
+
+.images-breadcumb {
+    max-height: 35px;
+    width: auto;
+}
+
+.images-logo-payment {
+    max-height: 44px;
+    width: auto;
+}
+
+.images-ranking-height {
+    max-height: 115px;
+    width: auto;
+}
+
+.images-ranking-width {
+    max-width: 100px;
+    height: auto;
+}
+
+.img-svg {
+    fill: #8f9e91;
+    width: 100px;
+    height: auto;
+    cursor: pointer;   
+}
+
+.offer {
+    text-transform: uppercase;
+    background-color: #9d196b;
+    font-size: 0.5em;
+    position: absolute;
+    top: 0px;
 }

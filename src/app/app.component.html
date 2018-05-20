@@ -1,127 +1,266 @@
 
-<div class="bg-cover">
-    <div class="container container-md pv-lg">
-        <div class="text-center mb-lg pb-lg">
-            <div class="h1 text-bold" *ngIf="isCreation">New user</div>
-            <div class="h1 text-bold" *ngIf="!isCreation">Update user</div>
+<!-- HEADER -->
+<div class="container">
+    <div class="row pt-3 pb-3">
+        <div class="col-sm-2 pt-3 pl-3">
+            <img class="logo" alt="" src="//www.lottoland.com/skins/lottoland/images/logo/ll-logo-green-14c4a0ddaf8c5179.svg" class="logo">
+        </div>
+        <div class="col-sm-5">
+            <div class="row">
+                <div class="col-sm-auto">
+                    <img src="//www.lottoland.com/cms/5965f6050eb3584b4b05c343/int_syndicates_logo_60x60.png">
+                </div>
+                <div class="col-sm-auto text-banner">
+                    <p>Boost your winning chances</p>
+                    <p>with the Lottoland syndicates</p>
+                    <a href="https://www.lottoland.com/en/syndicates-overview">Play now !</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-5 link-header d-flex align-items-end justify-content-end">
+            <span class="menuBuy"><i class="fa fa-search fa-lg"></i></span>
+            <a class="menuBuy">Log in</a>
+            <a class="menuBuy">Register</a>
+            <span class="menuBuy"><i class="fa fa-shopping-cart fa-lg"></i> To checkout</span>
         </div>
     </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-body">
-        <form class="form-horizontal p-20" novalidate>
-            <div class="row">
-                <div class="col-md-offset-3 col-md-6 margin-top-10">
-                    <div class="form-group">
-                        <div class="col-sm-1">Name:</div>
-                        <div class="col-sm-9" >
-                            <input class="form-control" type="text" [(ngModel)]="user.name" name="name">
-                        </div>
-                        <div class="col-sm-2" >
-                            <small class="text-muted text-danger">* Required</small>
-                        </div>
-                        <div class="col-md-offset-1 col-sm-11" *ngIf="errorNameRequired">
-                            <span class="text-danger">This field is required</span>
+</div>    
+    
+<nav class="navbar menu justify-content-center p-0">
+    <a class="nav-link">EuroMillions</a>
+    <a class="nav-link"><span class="offer pl-1 pr-1">special jackpot</span>MegaMillions</a>
+    <a class="nav-link"><span class="offer pl-1 pr-1">on the hour, every hours!</span>EuroMillions Go!</a>
+    <a class="nav-link">More Jackpots</a>
+    <a class="nav-link">Syndicates</a>
+    <a class="nav-link">Scratchcards</a>
+    <a class="nav-link">Instan Win</a>
+    <a class="nav-link">Games</a>
+</nav>
+
+<!-- CONTENT -->
+<div class="container">
+    <ul class="nav nav-pills mt-4 mb-3 justify-content-center nav-fill">
+        <li class="nav-item">
+            <a class="nav-link disabled" data-toggle="pill" href="#pills-eurojackpot">EuroJackpot</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="pill" href="#pills-results">EuroJackpot Results & Prize Breakdown</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" data-toggle="pill" href="#pills-faq">EuroJackpot Help & FAQ</a>
+        </li>
+    </ul>
+    <div class="tab-content mt-5">
+        <div class="tab-pane fade" id="pills-eurojackpot">EuroJackpot</div>
+
+        <div class="tab-pane fade show active" id="pills-results">
+            <div class="row title-section mb-2 ml-1 mr-1">
+                <div class="col-sm-8 mt-2">
+                    <h4>EUROJACKPOT RESULTS & WINNING NUMBERS</h4>
+                </div>
+                <div class="col-sm-2 pb-2 pl-1 pr-0">
+                    <select class="custom-select" disabled *ngIf="date" [(ngModel)]="date">
+                        <option value="{{date}}">{{date}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-2 pb-2 pl-1 pr-0">
+                    <select class="custom-select" disabled *ngIf="year" [(ngModel)]="year">
+                        <option value="{{year}}">{{year}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col-sm-12">
+                    <h5>EuroJackpot Results for {{fullDate}}</h5>
+                </div>
+                <div class="col-sm-12 mt-2">
+                    <span class="lottery-number mr-3" *ngFor="let number of numbers">{{number}}</span>
+                    <span class="lottery-number extra mr-3" *ngFor="let euroNumber of euroNumbers">{{euroNumber}}</span>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-sm-8">
+                    <table *ngIf="showTable();" class="table table-borderless">
+                        <thead>
+                            <tr class="border">
+                                <th scope="col">Tier</th>
+                                <th scope="col">Match</th>
+                                <th scope="col">Winners</th>
+                                <th scope="col">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border" *ngFor="let result of results">
+                                <td *ngFor="let infoResult of result; let i = index; let last=last;">
+                                    <div *ngIf="i === 2">{{infoResult | number:'.'}}x</div>
+                                    <div *ngIf="!last && i !== 2">{{infoResult}}</div>
+                                    <div *ngIf="last">
+                                        <p class="mb-0">{{infoResult.prize | currency:'EUR':'symbol':'.2'}}</p>
+                                        <p class="mb-0">{{infoResult.specialPrize | currency:'EUR':'symbol':'.2'}}</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card box-shadow">
+                        <div class="card-body">
+                            <h5 class="card-title">The EuroJackpot numbers for 18.05.2018</h5>
+                            <p class="card-text">The 322th draw for the EuroJackpot was held on 18.05.2018, as usual at 9pm in Helsinki.</p>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="col-sm-1">Surname:</div>
-                        <div class="col-sm-9" >
-                            <input class="form-control" type="text" [(ngModel)]="user.surname" name="surname"> 
-                        </div>
-                        <div class="col-sm-2" >
-                            <small class="text-muted text-danger">* Required</small>
-                        </div>
-                        <div class="col-md-offset-1 col-sm-11" *ngIf="errorSurnameRequired">
-                            <span class="text-danger">This field is required</span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-1">IBAN:</div>
-                        <div class="col-sm-9" >
-                            <input class="form-control" type="text" [(ngModel)]="user.IBAN" name="iban">
-                        </div>
-                        <div class="col-sm-2" >
-                            <small class="text-muted text-danger">* Required</small>
-                        </div>
-                        <div class="col-md-offset-1 col-sm-11" *ngIf="errorIBANRequired || errorIBANNotValid">
-                            <span class="text-danger" *ngIf="errorIBANRequired">This field is required</span>
-                            <span class="text-danger" *ngIf="errorIBANNotValid">This field is not valid</span>
+
+                    <div class="card box-shadow mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title">EuroJackpot numbers for 18.05.2018</h5>
+                            <p class="card-text">
+                                The balls used for the draw are made of a synthetic polymer, softer than ping-pong balls. The results are broadcast after the draw, with the draw-machines independently checked by the VTT Technical Research Center of Finland.
+                            </p>
+                            <p class="card-text">
+                                    Lottoland published the draw results immediately after the draw on 18.05.2018. You can easily check your tickets here at Lottoland, or purchase your ticket for the next draw.
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="form-actions text-center margin-top-10">
-                    <button type="submit" class="btn btn-success"  *ngIf="isCreation" (click)="create()"> Create </button>
-                    <button type="submit" class="btn btn-success"  *ngIf="!isCreation" (click)="update()"> Update </button>
-                    <button type="submit" class="btn btn-danger"  *ngIf="!isCreation" (click)="cancel()"> Cancel </button>
-                </div>
-            </div>
-        </form>
+        </div>
+
+        <div class="tab-pane fade" id="pills-faq">EuroJackpot Help & FAQ</div>
     </div>
 </div>
 
-<div class="bg-cover">
-    <div class="container container-md pv-lg">
-        <div class="text-center mb-lg pb-lg">
-            <div class="h1 text-bold">Lists of Users</div>
-        </div>
+<!-- FOOTER -->
+<nav class="fs-breadcumb">
+    <div class="container">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+                <a class="link" href="https://www.lottoland.com/en">Lottoland</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a class="link">EuroJackpot</a>    
+            </li>
+            <li class="breadcrumb-item">
+                <a>EuroJackpot Results & Winning Numbers</a>    
+            </li>
+        </ol>
     </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-body">
-        <div class="dataTable no-footer" *ngIf="users && users.length">
-            <table class="row-border hover dataTable no-footer" role="grid">
-                <thead>
-                <tr role="row">
-                    <th>Name</th>
-                    <th>Surname</th>
-                    <th>IBAN</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr role="row" class="pointer"
-                        *ngFor="let user of pagedResults; let i = index"
-                        [ngClass]="{'odd': (index % 2) === 0, 'even': (index % 2) !== 0}">
-                    <td>{{user.name}}</td>
-                    <td>{{user.surname}}</td>
-                    <td>{{user.IBAN}}</td>
-                    <td>
-                        <button class="btn btn-primary btn-lg" type="button" (click)="selectUser(i)">
-                            <em class="fa fa-user"><span class="text-buttons"> Update</span></em>
-                        </button>
-                        <button class="btn btn-danger btn-lg" type="button" (click)="delete(i)">
-                            <em class="fa fa-trash"><span class="text-buttons"> Delete</span></em>
-                        </button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <div class="dataTable-pager">
-                <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
-                    <li [ngClass]="{disabled:pager.currentPage === 1}">
-                            <a (click)="setPage(1)">First</a>
-                    </li>
-                    <li [ngClass]="{disabled:pager.currentPage === 1}">
-                            <a (click)="setPage(pager.currentPage - 1)">Previous</a>
-                    </li>
-                    <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
-                            <a (click)="setPage(page)">{{page}}</a>
-                    </li>
-                    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-                            <a (click)="setPage(pager.currentPage + 1)">Next</a>
-                    </li>
-                    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-                            <a (click)="setPage(pager.totalPages)">Last</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="text-center" *ngIf="!users || !users.length">
-            No matching results found
+</nav>
+<div class="backgroundColor"> 
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+            <img class="mr-5 images-breadcumb" src="//www.lottoland.com/cms/579b2e35e4b052b155658c09/18_logo@2x.png">
+            <img class="mr-5 images-breadcumb" src="//www.lottoland.com/cms/579b2e45e4b052b155658c0b/eu_logo@2x.png">
+            <img class="mr-5 images-breadcumb" src="//www.lottoland.com/cms/579b2e56e4b052b155658c15/gibraltar-gov_logo@2x.png">
+            <img class="mr-5 images-breadcumb" src="//www.lottoland.com/cms/579b2e6be4b052b155658c18/gbga_logo@2x.png">
+            <img class="mr-5 images-breadcumb" src="//www.lottoland.com/cms/597b0a520eb3587381202d37/what-is-lotto-betting_icon@2x.png">
         </div>
     </div>
 </div>
 
+<div class="container">
+    <div class="row fs-footer mt-4">
+        <div class="col-sm-2">
+            <p>Lottery</p>
+            <p><a class="link">Lottery Results</a></p>
+            <p><a class="link">Jackpots</a></p>
+            <p><a class="link">Help & FAQ</a></p>
+            <p><a class="link">Lotto Comparison</a></p>
+            <p><a class="link">Lottoland Syndicates</a></p>
+        </div>
+        <div class="col-sm-2">
+            <p>Info</p>
+            <p><a class="link">Guaranteed Payout</a></p>
+            <p><a class="link">Privacy Policy</a></p>
+            <p><a class="link">Terms and Conditions</a></p>
+            <p><a class="link">What is Lotto Betting</a></p>
+        </div>
+        <div class="col-sm-2">
+            <p>Contact</p>
+            <p><a class="link">About Us</a></p>
+            <p><a class="link">Contact Us</a></p>
+            <p><a class="link">Affiliate program</a></p>
+            <p><a class="link">Lottoland B2B</a></p>
+            <p><a class="link">Careers</a></p>
+        </div>
+        <div class="col-sm-2">
+            <p>Gamble Responsibly</p>
+            <p><a class="link">Gamble Responsibly</a></p>
+        </div>
+        <div class="col-sm-2">
+            <p>Country</p>
+            <p><a class="link">Österreich</a></p>
+            <p><a class="link">United Kingdom</a></p>
+            <p><a class="link">Ireland</a></p>
+            <p><a class="link">Australia</a></p>
+            <p><a class="link">Magyarország</a></p>
+            <p><a class="link">América Latina</a></p>
+            <p><a class="link">Sverige</a></p>
+            <p><a class="link">Italia</a></p>
+        </div>
+        <div class="col-sm-2">
+            <p>Language</p>
+            <p><a class="link">English (Worldwide)</a></p>
+            <p><a class="link">Deutsch</a></p>
+            <p><a class="link">Slovak</a></p>
+            <p><a class="link">Polski</a></p>
+            <p><a class="link">Svenska</a></p>
+            <p><a class="link">Português (Brasil)</a></p>
+            <p><a class="link">English (Canada)</a></p>
+            <p><a class="link">Deutsch (Schweiz)</a></p>
+            <p><a class="link">English (New Zealand)</a></p>
+        </div>
+    </div>
+            
+    <div class="row d-flex justify-content-between align-items-center border pt-4 pb-4">
+        <img class="mr-5 images-logo-payment" src="//www.lottoland.com/cms/579b2d6ae4b052b155658bc1/visa_logo@2x.png">
+        <img class="mr-5 images-logo-payment" src="//www.lottoland.com/cms/58cff0bd0eb35803dc11e2a0/mastercard-logo-154x89.png">
+        <img class="mr-5 images-logo-payment" src="//www.lottoland.com/cms/579b2d8de4b052b155658bcb/paysafe_logo@2x.png">
+        <img class="mr-5 images-logo-payment" src="//www.lottoland.com/cms/579b2d9be4b052b155658bd0/neteller_logo@2x.png">
+        <img class="mr-5 images-logo-payment" src="//www.lottoland.com/cms/579b2da9e4b052b155658bd6/skrill_logo@2x.png">
+    </div>
+</div>
+
+<div class="row mt-5 text-center d-flex justify-content-center fs-privacity">
+    <div class="col-sm-12 mb-5">
+        <a href="https://www.lottoland.com/en">
+            <svg class="img-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 570 180">
+                <path id="svg_1" d="m262.200317,130.5c-28.300049,19.5 -64.199951,27.900024 -113.200562,27.900024c-48.799438,0 -84.899048,-8.400024 -113.200195,-27.900024c-4.899323,-3.299988 -9.899323,-0.200012 -4.698853,6.099976c22,24.200012 67.099609,42.5 117.799561,42.5s95.899414,-18.299988 117.799774,-42.5c5.399445,-6.299988 0.399445,-9.399963 -4.499725,-6.099976zm-205,-21.099976c2.200043,-0.400024 3,-0.700012 3,-2.700012l0,-10.299988c0,-1.5 -1.200562,-2.799988 -2.799957,-2.799988l-22.500122,0c-9.100677,0 -12.699921,-2.299988 -12.699921,-12.200012l0,-76.5c0,-1.5 -1.200562,-2.799988 -2.80127,-2.799988l-15.19873,0c-1.500244,0 -2.80127,1.200011 -2.80127,2.799988l0,76.5c0,26.599976 9.80127,29.299988 35.600708,29.299988c7.900482,-0.099976 15.799805,-0.299988 20.200562,-1.299988z"></path>
+                <path id="svg_2" d="m98.699951,110.600037c23.500366,0 35.700439,-15.099976 35.700439,-35.5l0,-11.5c0,-20.400024 -12.200073,-35.5 -35.700439,-35.5s-35.700195,15.099976 -35.700195,35.5l0,11.5c0,20.399963 12.300049,35.5 35.700195,35.5zm-16,-47c0,-11.700012 5.599854,-19.299988 15.900269,-19.299988c10.500488,0 15.900269,7.5 15.900269,19.299988l0,11.5c0,11.700012 -5.60022,19.299988 -15.900269,19.299988c-10.499512,0 -15.900269,-7.5 -15.900269,-19.299988l0,-11.5z"></path>
+                <path id="svg_3" d="m139.999756,43.200012l6.500732,0l0,44.700012c0,19.099976 6.899902,22.599976 23.700439,22.599976c3.299561,0 7.799438,-0.200012 10.099228,-1c2.200333,-0.5 2.500015,-1 2.700211,-1.899963c0,-0.200012 0.099731,-0.5 0.099731,-0.700012l0,-8.299988c0,-1.5 -1.199844,-2.800049 -2.799942,-2.800049l-8.299789,0c-5.299683,0 -5.799438,-0.899963 -5.799438,-8l0,-44.599976l25.09935,0l0,44.700012c0,19.099976 6.90065,22.599976 23.700089,22.599976c3.299927,0 7.799805,-0.200012 10.100708,-1c2.199219,-0.5 2.49939,-1 2.699097,-1.899963c0,-0.200012 0.100098,-0.5 0.100098,-0.700012l0,-8.299988c0,-1.5 -1.199585,-2.800049 -2.799194,-2.800049l-8.300903,0c-5.299683,0 -5.799805,-0.899963 -5.799805,-8l0,-44.599976l10.400391,0c1.499512,0 2.800171,-1.200012 2.800171,-2.799988l0,-8.600037c0,-1.5 -1.200562,-2.799988 -2.800171,-2.799988l-10.199829,0l0,-19.899963c0,-1.5 -1,-2.100037 -2.300674,-2.100037l-0.499512,0l-13.800278,2.200012c-1.600098,0.200012 -3,1.200012 -3,2.799988l0,17l-25.099976,0l0,-20c0,-1.5 -1,-2.099975 -2.299561,-2.099975l-0.600601,0l-13.800766,2.200012c-1.599243,0.200012 -3,1.200012 -3,2.799989l0,16.999999l-6.499756,0c-1.500244,0 -2.799316,1.200012 -2.799316,2.799988l0,8.600037c-0.300171,1.599976 0.899902,2.899963 2.499268,2.899963z"></path>
+                <path id="svg_4" d="m266.600464,27.900024c-23.500977,0 -35.700195,15.099976 -35.700195,35.5l0,11.5c0,20.400024 12.199219,35.5 35.700195,35.5c23.499084,0 35.699341,-15.099976 35.699341,-35.5l0,-11.5c-0.099487,-20.5 -12.299866,-35.5 -35.699341,-35.5zm16,46.899963c0,11.700012 -5.600464,19.299988 -15.900421,19.299988c-10.499725,0 -15.90036,-7.5 -15.90036,-19.299988l0,-11.5c0,-11.700012 5.600708,-19.299988 15.90036,-19.299988c10.500275,0 15.900421,7.5 15.900421,19.299988l0,11.5z"></path>
+                <path id="svg_5" d="m329.90033,2l-14.499939,0c-1.500061,0 -2.700256,1.200013 -2.700256,2.799987l0,101.799988c0,1.5 1.200195,2.800049 2.700256,2.800049l14.499939,0c1.500061,0 2.699402,-1.200012 2.699402,-2.800049l0,-101.699951c0,-1.5 -1.299805,-2.900025 -2.699402,-2.900025z"></path>
+                <path id="svg_6" d="m375.799805,28.100037c-10.299805,0 -18.899414,1.099976 -25,2.200012c-2,0.399963 -2.799805,1.5 -2.799805,3l0,9.099976c0,2 1.200256,2.5 2.700195,2.5l0.700256,0c4.899475,-0.599976 14.799805,-1.099976 24.299744,-1.099976c8.799805,0 13.099609,2.200012 13.099609,11.5l0,6.299988l-9.399353,0c-25.900452,0 -36.400452,8.400024 -36.400452,24.700012l0,0.599976c0,19.299988 13.5,23.799988 25.799805,23.799988c7.200226,0 14.200226,-2.199951 21,-6.299988l0,2.200012c0,1.599976 1.400452,2.799988 3,2.799988l12.700195,0c1.600647,0 3,-1.200012 3,-2.799988l0,-51.400024c0.09967,-18.200012 -11.599609,-27.099976 -32.700195,-27.099976zm13.100586,63.5c-4.30072,2.200012 -9.90036,4 -15.200195,4c-7.400269,0 -10.700165,-1.900024 -10.700165,-8.900024l0,-0.599976c0,-8 3,-12.099976 16.59964,-12.099976l9.40036,0l-0.09964,17.599976l0,0z"></path>
+                <path id="svg_7" d="m565.200256,2l-13.700256,0c-1.601563,0 -3,1.200013 -3,2.799987l0,24.100037c-5.601563,-0.700012 -10.700195,-1 -14.299744,-1c-24,0 -35.700195,13.599976 -35.700195,35.799988l0,11c0,22.200012 11.600586,35.799988 35.700195,35.799988c9.499939,0 20.799866,-1.5 30,-3.700012c3.499939,-0.899963 4.099609,-1.700012 4.099609,-3.799988l0,-98.200013c-0.099609,-1.399963 -1.401428,-2.799987 -3.099609,-2.799987zm-16.700256,92.200012c-2.799805,0.599976 -8.90033,1 -14.299744,1c-12.799866,0 -15.900391,-8.599976 -15.900391,-20.400024l0,-11c0,-11.699951 3.100525,-20.399963 15.900391,-20.399963c3.599548,0 10.099609,0.399963 14.299744,1l0,49.799988zm-86.299744,-66.099976c-9.900391,0 -15.600586,1.599976 -24.200256,6.799988l0,-3c0,-1.599976 -1.40033,-2.799988 -3,-2.799988l-13,0c-1.599548,0 -3,1.200012 -3,2.799988l0,74.600037c0,1.599976 1.400452,3 3,3l13.700195,0c1.599731,0 3,-1.5 3,-3l0,-57.300049c6.299805,-3.099976 11.700195,-5.199951 16.799866,-5.199951c11.499939,0 12.700195,3.599976 12.700195,15.899963l0,46.400024c0,1.599976 1.399414,3 3,3l13.799744,0c1.59967,0 3,-1.5 3,-3l0,-46.400024c0,-18 -4.299835,-31.799988 -25.799744,-31.799988z"></path>
+            </svg>
+        </a>
+    </div>
+
+    <div class="col-sm-12 d-flex justify-content-center align-items-center mb-5">
+        <img class="mr-4 images-ranking-height" src="//www.lottoland.com/cms/59786f890eb3586acef77b31/egr-alternative-operator_icon@2x.png">
+        <img class="mr-4 images-ranking-height" src="//www.lottoland.com/cms/59786f970eb3586acef77b37/egr-rising-star_icon@2x.png">  
+        <img class="mr-4 images-ranking-height" src="//www.lottoland.com/cms/598975a90eb3582cf4f664d4/en_label_trustedshops.png">
+        <img class="mr-4 images-ranking-width" src="//www.lottoland.com/cms/5980739d0eb358501f76e1a6/gambleresponsibly_logo_color_150px.png">
+        <img class="mr-4 images-ranking-width" src="//www.lottoland.com/cms/59f995e50eb35873b6b46cda/EGR-Power-50-Rankings-Twitter-banner-768x384.jpg">
+    </div>
+
+    <div class="container">
+        <p>
+            EU Lotto Limited, of Suite A, Ocean Village Promenade, Ocean Village, Gibraltar GX11 1AA, is licensed by the Government of Gibraltar and regulated by the Gibraltar Gambling Commissioner under the Gibraltar Gambling Act 2005 (Licences: <a class="link" href="https://www.gibraltar.gov.gi/new/remote-gambling#ancla2" target="_blank">RGL 085 & 066</a>), and is licensed and regulated by the Gambling Commission of Great Britain for customers in Great Britain (Licence: <a class="link" href="https://secure.gamblingcommission.gov.uk/PublicRegister/Search/Detail/38991" target="_blank">000-038991-R-319408-005</a>). EU Lotto Limited has a Remote Bookmaker’s Licence issued by the Irish National Excise Licence Office (Reference Number 1011284) for lotto betting activities in the Republic of Ireland. 
+        </p>
+        <p>
+            This website is operated by Lottoland. Lottoland passes on Player’s Bets to EU Lotto, which is acting as a bookmaker. When placing Bets, Lottoland acts in the name and on behalf of the Player. 
+        </p>
+        <p>
+            Persons under 18 years of age are not permitted to gamble. 
+        </p>
+        <p>
+            This is a real money gambling app/site. Please gamble responsibly and only bet what you can afford. For gambling addiction help and support, please contact Gamble Aware at 0808 8020 133 or visit <a class="link" target="_blank" href="https://www.begambleaware.org/">https://www.begambleaware.org/</a>. 
+        </p>
+        <p>
+            EuroJackpot - check the official results and winning numbers
+        </p>
+    </div>
+</div>
